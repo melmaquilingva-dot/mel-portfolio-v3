@@ -281,6 +281,16 @@ main{display:flex;flex-direction:column}
 .contact-row:hover{color:#f47a39}
 .contact-row em{color:rgba(255,253,248,.36);font-style:normal;font-size:.66rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase}
 .contact-cta{margin-top:32px}
+.home-inquiry-form{margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}
+.home-form-status{display:none;margin-bottom:14px;padding:11px 12px;background:rgba(244,122,57,.16);border:1px solid rgba(244,122,57,.34);color:#fff;font-size:.75rem;font-weight:800}
+.home-form-status.visible{display:block}
+.home-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.home-field{display:grid;gap:6px}.home-field-wide{grid-column:1/-1}
+.home-field label{color:rgba(255,253,248,.44);font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.home-field input,.home-field select,.home-field textarea{width:100%;padding:12px;border:1px solid rgba(255,255,255,.12);border-radius:0;background:rgba(255,255,255,.045);color:#fffdf8;outline:none;font:inherit;font-size:.78rem}
+.home-field select option{background:#14100e}.home-field textarea{min-height:96px;resize:vertical}
+.home-field input:focus,.home-field select:focus,.home-field textarea:focus{border-color:#f47a39;box-shadow:0 0 0 3px rgba(244,122,57,.1)}
+.home-form-submit{margin-top:12px;width:100%}.home-form-note{display:block;margin-top:9px;color:rgba(255,253,248,.34);font-size:.63rem;text-align:center}
 .btn-full{width:100%;height:52px;font-size:.7rem}
 
 /* ════════ FOOTER ════════ */
@@ -2009,9 +2019,23 @@ footer{background:var(--hero-bg);border-top:1px solid rgba(255,255,255,.07);padd
       <a class="contact-row" href="tel:+639916512418">+63 991 651 2418 <em>Phone</em></a>
       <span class="contact-row">Davao Del Norte, Philippines <em>Location</em></span>
     </div>
-    <div class="contact-cta">
-      <a href="mailto:melmaquilingva@gmail.com?subject=Digital%20Marketing%20Opportunity" class="btn btn-primary btn-full">Discuss a Marketing Role &rarr;</a>
-    </div>
+    <form class="home-inquiry-form" action="https://formsubmit.co/melmaquilingva@gmail.com" method="POST" aria-label="Project inquiry form">
+      <input type="hidden" name="_subject" value="New portfolio contact inquiry">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://mel-portfolio-tawny.vercel.app/?submitted=true#contact">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <div class="home-form-status" role="status">Thank you — your inquiry was sent. I’ll reply within 24 hours.</div>
+      <div class="home-form-grid">
+        <div class="home-field"><label for="home-name">Full name *</label><input id="home-name" name="name" autocomplete="name" required></div>
+        <div class="home-field"><label for="home-email">Email *</label><input id="home-email" type="email" name="email" autocomplete="email" required></div>
+        <div class="home-field home-field-wide"><label for="home-company">Company</label><input id="home-company" name="company" autocomplete="organization"></div>
+        <div class="home-field home-field-wide"><label for="home-help">What do you need help with? *</label><select id="home-help" name="help_type" required><option value="">Select a service</option><option>Marketing Manager / Ongoing Support</option><option>Paid Ads &amp; Performance Reporting</option><option>GoHighLevel &amp; Automation</option><option>Landing Page / Funnel</option><option>Content &amp; Creative Strategy</option><option>Executive &amp; Marketing Operations</option><option>Other</option></select></div>
+        <div class="home-field home-field-wide"><label for="home-details">Project details *</label><textarea id="home-details" name="project_details" placeholder="Goals, challenges, and timeline" required></textarea></div>
+      </div>
+      <button type="submit" class="btn btn-primary home-form-submit">Send Project Details &rarr;</button>
+      <small class="home-form-note">Your information is used only to respond to this inquiry.</small>
+    </form>
   </div>
 </div>
 
@@ -2028,6 +2052,9 @@ footer{background:var(--hero-bg);border-top:1px solid rgba(255,255,255,.07);padd
   document.querySelectorAll(
     '.reveal,.reveal-left,.reveal-right,.anim-hero,.anim-right,.anim-rise,.anim-zoom,.anim-flip'
   ).forEach(el => _obs.observe(el));
+  if(new URLSearchParams(window.location.search).get('submitted') === 'true'){
+    document.querySelectorAll('.home-form-status').forEach(el => el.classList.add('visible'));
+  }
 </script>
 </body>
 </html>
